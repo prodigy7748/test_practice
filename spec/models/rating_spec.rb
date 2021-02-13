@@ -21,4 +21,11 @@ RSpec.describe Rating, type: :model do
     rating.valid?
     expect(rating.errors[:score]).not_to be_empty
   end
+
+  it 'promoter? returns true if score is 9 or 10' do
+    9.upto(10).each do |i|
+      rating = Rating.new(score: 9)
+      expect rating.promoter?
+    end
+  end
 end
