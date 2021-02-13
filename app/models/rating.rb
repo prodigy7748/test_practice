@@ -9,4 +9,8 @@ class Rating < ApplicationRecord
   def passive?
     score >= 7 && score <= 8
   end
+
+  def detractor?
+    score <= 6 && score >= 0
+  end
 end

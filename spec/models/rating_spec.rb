@@ -43,4 +43,10 @@ RSpec.describe Rating, type: :model do
     end
   end
 
+  it 'detractor? returns true if score is less or equal to 6' do
+    0.upto(6).each do |i|
+      rating = Rating.new(score: i)
+      expect(rating.detractor?).to be true
+    end
+  end
 end
