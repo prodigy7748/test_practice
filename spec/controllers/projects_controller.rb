@@ -14,10 +14,9 @@ RSpec.describe ProjectsController do
   end
 
   describe 'after login' do
-    user = FactoryBot.create(:user)
-    let(:user) { sign_in user }
-
-    it 'can get new when login' do
+    it 'can get new' do
+      user = FactoryBot.create(:user)
+      sign_in user
       get :new
       expect(response).to have_http_status(:success)
     end
