@@ -6,4 +6,8 @@ FactoryBot.define do
     email { 'aaa@aaa.com' }
     password { '111111' }
   end
+
+  factory :project do
+    title { 'aaa' }
+  end
 end
