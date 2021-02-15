@@ -41,5 +41,10 @@ RSpec.describe ProjectsController do
       put :update, params: { id: @project.id, project: { title: '' } }
       expect(response).to render_template(:edit)
     end
+
+    it 'can destroy project' do
+      delete :destroy, params: { id: @project.id }
+      expect(response).to redirect_to projects_path
+    end
   end
 end
