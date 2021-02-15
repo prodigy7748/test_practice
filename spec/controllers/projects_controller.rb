@@ -36,5 +36,10 @@ RSpec.describe ProjectsController do
       @project.reload
       expect(@project.title).to eq 'updated project'
     end
+
+    it 'cannot update project with invalid title' do
+      put :update, params: { id: @project.id, project: { title: '' } }
+      expect(response).to render_template(:edit)
+    end
   end
 end
