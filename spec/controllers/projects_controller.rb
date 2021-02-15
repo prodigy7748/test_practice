@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe ProjectsController do
   before do
+    @user = FactoryBot.create(:user)
+    sign_in @user
     @project = FactoryBot.create(:project)
   end
 
@@ -12,6 +14,7 @@ RSpec.describe ProjectsController do
     end
 
     it 'can not get new without login' do
+      sign_out @user
       get :new
       expect(response).to redirect_to new_user_session_path
     end
@@ -19,17 +22,19 @@ RSpec.describe ProjectsController do
 
   describe 'after login' do
     it 'can get new' do
-      user = FactoryBot.create(:user)
-      sign_in user
       get :new
       expect(response).to have_http_status(:success)
     end
 
     it 'can view project' do
-      user = FactoryBot.create(:user)
-      sign_in user
       get :show, params: { id: @project.id }
       expect(response).to have_http_status(:success)
+    end
+
+    it 'can update project' do
+      put :update, params: { id: @project.id, project: { title: 'updated project' } }
+      @project.reload
+      expect(@project.title).to eq 'updated project'
     end
   end
 end
